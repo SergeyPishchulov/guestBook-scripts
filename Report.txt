@@ -39,5 +39,6 @@
     1) git clone https://github.com/SergeyPishchulov/guestBook-backend.git
     2) Внести изменения, например, Replica version в index.html
     3) commit & push
+        (disturm добавлен в collaborators на GitHub)
     4) .\update_replica.ps1 <vm-external-ip>
     5) Ctrl+C для выхода из соединения с ВМ. Сервер продолжит работать
