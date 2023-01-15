@@ -23,7 +23,8 @@
 
 [1] Обновление версии статического фронта
     1) git clone https://github.com/SergeyPishchulov/guestBook-frontend.git
-    2) Из директории guestBook-frontend:
+    2) Внести изменения, например, Front version в index.html
+    3) Из директории guestBook-frontend:
         aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp --recursive ./src s3://nitroline.unsafe.ml/
 
 
@@ -37,7 +38,7 @@
 
 [3] Обновление версии приложения на реплике.
     1) git clone https://github.com/SergeyPishchulov/guestBook-backend.git
-    2) Внести изменения, например, Replica version в index.html
+    2) Внести изменения, например, REPLICA_VERSION в main.py
     3) commit & push
         (disturm добавлен в collaborators на GitHub)
     4) .\update_replica.ps1 <vm-external-ip>
