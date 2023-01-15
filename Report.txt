@@ -1,0 +1,43 @@
+Финальное задание по курсу Инженер Облачных Сервисов
+
+Приложение - http://nitroline.unsafe.ml.website.yandexcloud.net/
+Репозиторий со скриптами - https://github.com/SergeyPishchulov/guestBook-scripts
+
+Реализовано:
+* Статический фронт на Object Storage
+* Реплики бэкенда на ВМ, скрытые за Network Load Balancer
+* Сохранение данных в Serverless Yandex DB.
+
+Перед запуском скриптов:
+
+[1] yc init
+    Выбрать cloud-spishulov
+    Выбрать каталог default
+
+[2]
+    Сгенерировать статический ключ доступа для сервисного аккаунта с именем service-account
+    aws configure
+    Вставить ключи от сервисного аккаунта
+
+Скрипты на powershell:
+
+[1] Обновление версии статического фронта
+    1) git clone https://github.com/SergeyPishchulov/guestBook-frontend.git
+    2) Из директории guestBook-frontend:
+        aws --endpoint-url=https://storage.yandexcloud.net/ s3 cp --recursive ./src s3://nitroline.unsafe.ml/
+
+
+[2] Создание дополнительной реплики и подключение ее к остальным.
+    1) Расположить в текущей директории файл с публичным ключом id_rsa.pub
+    2) .\create_and_add_vm.ps1 myvm777
+		2.1) Are you sure you want to continue connecting? yes
+    3) Через 2 минуты сервер установит все необходимое для работы, запустится и начнет писать логи в консоль
+    4) Ctrl+C для выхода из соединения с ВМ. Сервер продолжит работать
+
+
+[3] Обновление версии приложения на реплике.
+    1) git clone https://github.com/SergeyPishchulov/guestBook-backend.git
+    2) Внести изменения, например, Replica version в index.html
+    3) commit & push
+    4) .\update_replica.ps1 <vm-external-ip>
+    5) Ctrl+C для выхода из соединения с ВМ. Сервер продолжит работать
